@@ -1,0 +1,64 @@
+{
+  "/biblios": {
+    "post": {
+      "x-mojo-to": "Dcook::OaipmhImport::RecordController#import_biblio",
+      "operationId": "import_biblio",
+      "tags": ["biblios"],
+      "parameters": [{
+        "name": "body",
+        "in": "body",
+        "description": "OAI-PMH XML bibliographic records",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }],
+      "consumes": [
+        "text/xml"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Records processed",
+          "schema": {
+              "type": "object",
+                "properties": {
+                  "added": {
+                    "description": "Number of added records",
+                    "type": "integer"
+                  },
+                  "updated": {
+                    "description": "Number of updated records",
+                    "type": "integer"
+                  },
+                  "deleted": {
+                    "description": "Number of deleted records",
+                    "type": "integer"
+                  }
+                }
+          }
+        },
+        "400": {
+          "description": "An error occured",
+          "schema": {
+              "type": "object",
+                "properties": {
+                  "error": {
+                    "description": "An explanation for the error",
+                    "type": "string"
+                  }
+                }
+          }
+        }
+      },
+      "x-koha-authorization": {
+        "permissions": {
+          "editcatalogue": "edit_catalogue"
+        }
+      }
+    }
+  }
+}
+
